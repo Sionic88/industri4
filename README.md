@@ -17,7 +17,7 @@ Den genererer koordinater for modulene og lar kunde spesifisere hvor dem skal li
 
 * Trykk på modulnavnet på modulen du ønsker
 * Klikk og drag modul
-* Roter modul på "T"
+* Roter modul på "R"
 * høyreklikk modul for å slette
 
 Ved å trykke "Send", skrives den gitte kombinasjonen av plasserte deler seg til ordre.json filen.
