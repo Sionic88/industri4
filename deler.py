@@ -2,9 +2,9 @@
 
 modules = {
     "modul-001": {
-        "name": "knivmodul",
-        "width_mm": 120,
-        "height_mm": 180,
+        "name": "Test1",
+        "width_mm": 60,
+        "height_mm": 60,
         "color": (70, 130, 180 ),
         "image": "images/knivmodul.png"
     },
