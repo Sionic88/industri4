@@ -435,6 +435,45 @@ def vent_pa_ok():
             raise RuntimeError(f"TMflow meldte scriptfeil: {melding}")
 
 
+# Vent til Listen faktisk er klar for neste modul
+def vent_til_listen_klar():
+
+    print("Kontrollerer at Listen er klar...")
+
+    frist = time.monotonic() + 15
+
+    while time.monotonic() < frist:
+
+        # Spør TMflow om Listen er aktiv
+        listen_socket.sendall(b"$TMSTA,2,00,*41\r\n")
+
+        slutt = min(time.monotonic() + 1, frist)
+
+        while time.monotonic() < slutt:
+
+            try:
+                type_pakke, nummer, melding = motta_listen_pakke(
+                    slutt - time.monotonic()
+                )
+            except socket.timeout:
+                break
+
+            if type_pakke == "CPERR":
+                raise RuntimeError(f"TMflow-feil: {melding}")
+
+            if type_pakke == "TMSTA" and nummer == "00":
+
+                if melding.strip().lower() == "true,ok":
+                    print("Listen er klar for neste modul")
+                    return
+
+                break
+
+        time.sleep(0.2)
+
+    raise TimeoutError("Listen ble ikke klar for neste modul")
+
+
 #======================================
 #HOVEDLØKKEN===========================
 #======================================
@@ -458,8 +497,8 @@ while True:
     #send moduler en og en
     for modul in moduler:
         send_modul(modul)
-
         vent_pa_ok()
+        vent_til_listen_klar()
 
     #Alle moduler er plassert
     print("Ordre ferdig")

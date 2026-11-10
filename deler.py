@@ -9,14 +9,14 @@ modules = {
         "image": "images/knivmodul.png"
     },
     "modul-002": {
-        "name": "skruemodul",
-        "width_mm": 60,
-        "height_mm": 120,
+        "name": "test2",
+        "width_mm": 120,
+        "height_mm": 60,
         "color": (255, 165, 0),
         "image": "images/skruemodul.png"
     },
     "modul-003": {
-        "name": "sveisemodul",
+        "name": "test3",
         "width_mm": 120,
         "height_mm": 120,
         "color": (34, 139, 34),
